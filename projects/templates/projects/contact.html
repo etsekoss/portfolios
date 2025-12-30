@@ -1,0 +1,36 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}Contact | Kossivi ETSE{% endblock %}
+
+{% block content %}
+<section class="bg-white">
+  <div class="mx-auto max-w-3xl px-4 py-16">
+    <h1 class="text-3xl font-extrabold text-slate-900">Contact</h1>
+    <p class="mt-3 text-slate-700">
+      Pour une opportunité (stage/CDI/CDD) ou un échange technique, vous pouvez me contacter via email ou LinkedIn.
+    </p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl border bg-gray-50 p-6">
+        <h2 class="text-lg font-bold text-slate-900">Email</h2>
+        <div class="mt-4 space-y-2 text-sm">
+          <p><a class="font-semibold text-emerald-700 hover:underline" href="mailto:kossivi.etse02@gmail.com">kossivi.etse02@gmail.com</a></p>
+          <p><a class="font-semibold text-emerald-700 hover:underline" href="mailto:kossivi.etse@etu.univ-amu.fr">kossivi.etse@etu.univ-amu.fr</a></p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border bg-gray-50 p-6">
+        <h2 class="text-lg font-bold text-slate-900">Téléphone</h2>
+        <p class="mt-4 text-sm">
+          <a class="font-semibold text-emerald-700 hover:underline" href="tel:+33629844798">+33 6 29 84 47 98</a>
+        </p>
+
+        <h2 class="mt-8 text-lg font-bold text-slate-900">Réseaux</h2>
+        <p class="mt-4 text-sm">
+          <a class="font-semibold text-emerald-700 hover:underline" href="https://www.linkedin.com/in/kossivi-etse-98033022a/" target="_blank" rel="noopener">LinkedIn</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

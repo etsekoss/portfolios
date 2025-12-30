@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^10.1.0",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "scripts": {
+    "dev:css": "tailwindcss -i ./static/css/tailwind.css -o ./static/css/style.css --watch",
+    "build:css": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 tailwindcss -i ./static/src/input.css -o ./static/css/style.css --minify",
+    "watch:css": "cross-env BROWSERSLIST_IGNORE_OLD_DATA=1 tailwindcss -i ./static/src/input.css -o ./static/css/style.css --watch"
+
+
+  }
+}

@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Inclure Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .category-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .dashboard-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center dashboard-title">Expérience dans le monde de la Data</h1>
+        <div class="row">
+            <!-- Catégorie : Machine Learning -->
+            <div class="col-md-4">
+                <a href="/projects/machine-learning/" class="text-decoration-none">
+                    <div class="card text-white bg-primary mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Machine Learning</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Catégorie : Deep Learning -->
+            <div class="col-md-4">
+                <a href="/projects/deep-learning/" class="text-decoration-none">
+                    <div class="card text-white bg-success mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Deep Learning</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Catégorie : Développement Web -->
+            <div class="col-md-4">
+                <a href="/projects/web-development/" class="text-decoration-none">
+                    <div class="card text-white bg-info mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Développement Web</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Catégorie : Data Ingénierie -->
+            <div class="col-md-4">
+                <a href="/projects/data-engineering/" class="text-decoration-none">
+                    <div class="card text-white bg-warning mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Data Ingénierie</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Catégorie : Développement Mobile -->
+            <div class="col-md-4">
+                <a href="/projects/mobile-development/" class="text-decoration-none">
+                    <div class="card text-white bg-danger mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Développement Mobile</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Catégorie : Stages -->
+            <div class="col-md-4">
+                <a href="/projects/internships/" class="text-decoration-none">
+                    <div class="card text-white bg-secondary mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Stages</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Catégorie : Autres Projets Professionnels -->
+            <div class="col-md-4 offset-md-4">
+                <a href="/projects/other-projects/" class="text-decoration-none">
+                    <div class="card text-white bg-dark mb-3 category-card">
+                        <div class="card-body text-center">
+                            <h5 class="category-title">Autres Projets Professionnels</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Inclure Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

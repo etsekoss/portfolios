@@ -1,0 +1,44 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-8 mx-auto px-4">
+    <!-- Titre -->
+    <h1 class="text-4xl font-bold text-center text-blue-700 mb-8">
+        Notebook pour le projet : {{ project.title }}
+    </h1>
+
+    <!-- Affichage du notebook -->
+    <div class="notebook-container text-center">
+        {% if notebook_html_content %}
+            <!-- Affichage du contenu HTML directement avec style appliqué -->
+            <div class="border p-4 shadow-lg bg-white rounded notebook-content">
+                {{ notebook_html_content|safe }}
+            </div>
+        {% else %}
+            <!-- Message d'erreur si aucun fichier HTML n'est disponible -->
+            <div class="alert alert-warning text-center" role="alert">
+                Aucun fichier HTML de notebook n'est disponible pour ce projet.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Lien vers GitHub -->
+    <div class="text-center mt-4">
+        {% if project.github %}
+            <a href="{{ project.github }}" target="_blank" class="btn btn-primary">
+                Voir le code sur GitHub
+            </a>
+        {% else %}
+            <p class="text-danger">Aucun lien GitHub disponible pour ce projet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Lien pour revenir à la liste des projets -->
+    <div class="text-center mt-4">
+        <a href="{% url 'category_view' category_name=project.category %}" class="btn btn-secondary">
+            Retour à la liste des projets
+        </a>
+    </div>
+</div>
+{% endblock %}

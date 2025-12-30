@@ -1,0 +1,39 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Titre principal centré en bleu -->
+    <h1 style="color: #87CEEB; font-size: 4rem; font-weight: bold; text-align: center;">
+        Technologies Utilisées
+    </h1>
+    <!-- Conteneur Flex pour alignement horizontal des cartes avec un décalage à droite -->
+    <div class="d-flex justify-content-start align-items-stretch gap-3" style="overflow-x: auto; white-space: nowrap; margin-left: 90px;">
+        {% for category, data in technologies.items %}
+        <div class="card text-center shadow-sm" style="width: 18rem; display: inline-block;">
+            <a href="{% url 'technologies_category' category|slugify %}" class="text-decoration-none">
+                <!-- Image -->
+                {% if category == "Langages de Programmation" %}
+                <img src="/media/projects/langages_programmation.png" class="card-img-top p-7" alt="Langages" style="height: 170px; object-fit: contain;">
+                {% elif category == "Frameworks et Bibliothèques" %}
+                <img src="/media/projects/frameworks_bibliotheques.png" class="card-img-top p-7" alt="Frameworks" style="height: 170px; object-fit: contain;">
+                {% elif category == "Outils et Plateformes" %}
+                <img src="/media/projects/outils_plateformes.png" class="card-img-top p-7" alt="Outils" style="height: 170px; object-fit: contain;">
+                {% elif category == "Domaines Spécifiques" %}
+                <img src="/media/projects/domaines_specifiques.png" class="card-img-top p-7" alt="Domaines" style="height: 170px; object-fit: contain;">
+                {% endif %}
+                <!-- Titre -->
+                <div class="card-body">
+                    <h5 class="card-title text-dark">
+                        {% if category == "Langages de Programmation" %}Langages{% endif %}
+                        {% if category == "Frameworks et Bibliothèques" %}Frameworks{% endif %}
+                        {% if category == "Outils et Plateformes" %}Outils{% endif %}
+                        {% if category == "Domaines Spécifiques" %}Domaines{% endif %}
+                    </h5>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

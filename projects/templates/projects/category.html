@@ -1,0 +1,42 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto my-8 px-4">
+
+  <div class="flex justify-center">
+    <h1 class="custom-heading"><strong>{{ category_name }}</strong></h1>
+  </div>
+
+  <p class="text-center text-gray-600 mb-12">
+    Bienvenue dans la rubrique {{ category_name }}. Découvrez les projets et travaux liés à ce domaine.
+  </p>
+
+  <div class="grid-container">
+    {% for project in projects %}
+
+      <a class="project-card" href="{% url 'project_detail' project.id %}">
+        {% if project.image %}
+          <img src="{{ project.image.url }}" alt="{{ project.title }}" class="custom-image">
+        {% else %}
+          <img src="{% static 'images/default.png' %}" alt="Image par défaut" class="custom-image">
+        {% endif %}
+
+        <div class="custom-content">
+          <h3 class="custom-title">{{ project.title }}</h3>
+          <p class="custom-description">{{ project.description|truncatewords:6 }}</p>
+          <p class="custom-technologies"><strong>Technologies :</strong> {{ project.technologies }}</p>
+        </div>
+      </a>
+
+    {% empty %}
+      <p class="text-center text-gray-500 col-span-full">Aucun projet trouvé pour le moment.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

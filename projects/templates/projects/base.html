@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Kossivi ETSE | Portfolio{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block extra_css %}{% endblock %}
+
+</head>
+<body class="bg-gray-50 text-gray-900">
+<!-- BASE-OK -->
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 border-b bg-slate-800">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <!-- Left: identity -->
+      <a href="{% url 'home' %}" class="flex items-center gap-3">
+        <img src="{% static 'images/your_photo.jpg' %}" alt="Photo de Kossivi ETSE" class="h-11 w-11 rounded-full object-cover" />
+        <div class="leading-tight text-white">
+          <div class="text-sm font-semibold">Kossivi ETSE</div>
+          <div class="text-xs text-slate-200">Full Data • Full Web • Developer</div>
+        </div>
+      </a>
+
+      <!-- Right: nav -->
+      <nav class="hidden items-center gap-6 text-sm font-semibold text-white md:flex">
+        <a class="hover:text-emerald-300" href="{% url 'home' %}">Accueil</a>
+        <a class="hover:text-emerald-300" href="{% url 'technologies' %}">Technologies</a>
+
+        <!-- Dropdown without JS -->
+        <div class="relative group">
+          <button type="button" class="flex items-center gap-2 hover:text-emerald-300">
+            Mes projets <span class="text-xs">▾</span>
+          </button>
+
+          <div class="absolute right-0 top-full z-50 hidden w-56 overflow-hidden rounded-lg border bg-white text-slate-800 shadow-lg group-hover:block">
+            <div class="py-1">
+              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/data-engineering/">Data Ingénierie</a>
+              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/machine-learning/">Machine Learning</a>
+              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/deep-learning/">Deep Learning</a>
+              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/web-development/">Développement Web</a>
+              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/mobile-development/">Développement Mobile</a>
+            </div>
+          </div>
+        </div>
+
+
+
+        <a class="hover:text-emerald-300" href="{% url 'blog' %}">Blog</a>
+        <a class="hover:text-emerald-300" href="{% url 'about' %}">À propos</a>
+        <a class="rounded-md bg-emerald-400 px-3 py-2 text-slate-900 hover:bg-emerald-300" href="{% static 'files/cv_kossivi.pdf' %}" target="_blank" rel="noopener">Mon CV (PDF)</a>
+        <a class="hover:text-emerald-300" href="{% url 'contact' %}">Contact</a>
+      </nav>
+
+      <!-- Mobile menu: minimal -->
+      <div class="md:hidden">
+        <a class="rounded-md bg-emerald-400 px-3 py-2 text-sm font-semibold text-slate-900" href="{% static 'files/cv_kossivi.pdf' %}" target="_blank" rel="noopener">CV</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="mt-16 border-t bg-slate-800 text-slate-200">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-center text-sm">
+      © 2025 Kossivi ETSE — Tous droits réservés. Retrouvez-moi sur
+      <a class="font-semibold text-emerald-300 hover:underline" href="https://www.linkedin.com/in/kossivi-etse-98033022a/" target="_blank" rel="noopener">LinkedIn</a>.
+    </div>
+  </footer>
+</body>
+</html>
