@@ -21,10 +21,15 @@
 
       <a class="project-card" href="{% url 'project_detail' project.id %}">
         {% if project.image %}
-          <img src="{{ project.image.url }}" alt="{{ project.title }}" class="custom-image">
+          <img
+            src="{% static 'images/tech/' %}{{ project.image.name|cut:'projects/' }}"
+            alt="{{ project.title }}"
+            class="custom-image"
+          >
         {% else %}
-          <img src="{% static 'images/default.png' %}" alt="Image par défaut" class="custom-image">
+            <img src="{% static 'images/default.png' %}" alt="Image par défaut" class="custom-image">
         {% endif %}
+
 
         <div class="custom-content">
           <h3 class="custom-title">{{ project.title }}</h3>
