@@ -27,17 +27,20 @@ media/
 staticfiles/
 *.log
 
-# --- Exceptions (pour portfolio / démo en prod) ---
-# On versionne la DB principale (pas les backups)
+
+# On versionne la DB principale 
 !db.sqlite3
 db.sqlite3.*
 
-# On versionne seulement certaines images media (pas tout media)
+# On versionne certaines images
 !media/
 media/*
 !media/projects/
 !media/projects/**
 
+# autoriser les notebooks
+!media/notebooks/
+!media/notebooks/**
 
 # =========================
 # Node
@@ -50,11 +53,6 @@ pnpm-debug.log*
 dist/
 build/
 
-# =========================
-# Tailwind / front build artifacts (optionnel)
-# =========================
-# Si vous régénérez style.css via npm, vous pouvez ignorer le fichier compilé :
-# static/css/style.css
 
 # =========================
 # OS / editors
