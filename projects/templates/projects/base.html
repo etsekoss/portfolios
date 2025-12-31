@@ -5,11 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Kossivi ETSE | Portfolio{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% block extra_css %}{% endblock %}
 
+  <!-- CSS principal (1 seule fois) + cache-buster -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=81d13fd">
+
+  {% block extra_css %}{% endblock %}
 </head>
+
 <body class="bg-gray-50 text-gray-900">
 <!-- BASE-OK -->
   <!-- Navbar -->
