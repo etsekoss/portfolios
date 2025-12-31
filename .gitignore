@@ -27,9 +27,17 @@ media/
 staticfiles/
 *.log
 
-# Django local settings / secrets
-local_settings.py
-settings_local.py
+# --- Exceptions (pour portfolio / démo en prod) ---
+# On versionne la DB principale (pas les backups)
+!db.sqlite3
+db.sqlite3.*
+
+# On versionne seulement certaines images media (pas tout media)
+!media/
+media/*
+!media/projects/
+!media/projects/**
+
 
 # =========================
 # Node
