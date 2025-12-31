@@ -22,16 +22,16 @@
 
             <!-- Image -->
             {% if category == "Langages de Programmation" %}
-              <img src="/media/projects/langages_programmation.png" alt="Langages"
+              <img src="{% static 'images/tech/langages_programmation.png' %}" alt="Langages"
                    style="height:170px; width:100%; object-fit:contain; display:block; margin:0 auto;">
             {% elif category == "Frameworks et Bibliothèques" %}
-              <img src="/media/projects/frameworks_bibliotheques.png" alt="Frameworks"
+              <img src="{% static 'images/tech/frameworks_bibliotheques.png' %}" alt="Frameworks"
                    style="height:170px; width:100%; object-fit:contain; display:block; margin:0 auto;">
             {% elif category == "Outils et Plateformes" %}
-              <img src="/media/projects/outils_plateformes.png" alt="Outils"
+              <img src="{% static 'images/tech/outils_plateformes.png' %}" alt="Outils"
                    style="height:170px; width:100%; object-fit:contain; display:block; margin:0 auto;">
             {% elif category == "Domaines Spécifiques" %}
-              <img src="/media/projects/domaines_specifiques.png" alt="Domaines"
+              <img src="{% static 'images/tech/domaines_specifiques.png' %}" alt="Domaines"
                    style="height:170px; width:100%; object-fit:contain; display:block; margin:0 auto;">
             {% endif %}
 
