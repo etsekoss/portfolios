@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-5">
 
-  <!-- Titre principal centré -->
+  <!-- Titre principal -->
   <h1 style="color: #87CEEB; font-size: 4rem; font-weight: bold; text-align: center;">
     Technologies Utilisées
   </h1>
@@ -17,7 +17,7 @@
       <div class="card shadow-sm" style="width: 18rem; display: inline-block;">
         <a href="{% url 'technologies_category' category|slugify %}" class="text-decoration-none">
 
-          <!-- Bloc centré : image + texte -->
+          <!-- Bloc  image + texte -->
           <div class="d-flex flex-column align-items-center justify-content-center py-3">
 
             <!-- Image -->
@@ -35,7 +35,7 @@
                    style="height:170px; width:100%; object-fit:contain; display:block; margin:0 auto;">
             {% endif %}
 
-            <!-- Titre (centré) -->
+            <!-- Titre  -->
             <h5 class="mt-4 mb-0 text-dark" style="width:100%; text-align:center;">
               {% if category == "Langages de Programmation" %}Langages{% endif %}
               {% if category == "Frameworks et Bibliothèques" %}Frameworks{% endif %}

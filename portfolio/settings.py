@@ -7,11 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default="unsafe-dev-key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: 
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 # Comma-separated: example "127.0.0.1,localhost,mon-domaine.com"
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="127.0.0.1,localhost").split(",")
+raw_hosts = config("ALLOWED_HOSTS", default="")
+ALLOWED_HOSTS = [h.strip() for h in raw_hosts.split(",") if h.strip()]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -77,7 +78,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise: serve static files in production
+# serve static files in production
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -85,7 +86,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Optional: set trusted origins for CSRF when you deploy
 # Example: https://mon-domaine.com
 CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()]
 
