@@ -1,7 +1,7 @@
 {% extends "projects/base.html" %}
 {% load static %}
 
-{% block title %}Kossivi ETSE | Full Data • Software • Developer{% endblock %}
+{% block title %}Kossivi ETSE | Data & Software Developer{% endblock %}
 
 {% block content %}
 
@@ -12,27 +12,38 @@
       <p class="text-sm font-semibold text-emerald-700">Profil</p>
 
       <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-        Je conçois des solutions data de bout en bout : pipelines fiables, automatisation et applications orientées métier.
+        Je conçois et déploie des solutions data de bout en bout, de l'ingestion à l'exploitation métier,
+        avec un fort accent sur la fiabilité, l'automatisation et l'impact opérationnel.
       </h1>
 
-      <p class="mt-4 text-base leading-relaxed text-slate-700">
-        Diplômé d'un Master en Mathématiques Appliquées / Statistiques - parcours Data Science, et actuellement en Master
-        Compétences Complémentaires en Informatique, je combine data engineering et développement logiciel pour livrer des
-        solutions exploitables : ingestion, transformation, qualité, restitution (KPI / dashboards) et automatisation.
-      </p>
+      <div class="mt-4 space-y-3 text-base leading-relaxed text-slate-700">
+        <p>
+          Diplômé d'un Master en Mathématiques Appliquées & Statistiques (parcours Data Science) et actuellement
+          en Master Compétences Complémentaires en Informatique, je développe un profil à l'interface entre
+          data engineering et développement logiciel.
+        </p>
+        <p>
+          Mon approche est orientée livrables concrets : pipelines fiables, ingestion et transformation multi-sources,
+          contrôle qualité, automatisation des traitements et restitution via indicateurs et tableaux de bord.
+        </p>
+        <p>
+          Je privilégie la robustesse des flux, la traçabilité des données et des solutions réellement utiles
+          pour les équipes métiers.
+        </p>
+      </div>
 
       <ul class="mt-6 space-y-2 text-sm text-slate-700">
         <li class="flex gap-2">
           <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span>ETL/ELT et orchestration de flux (Azure Data Factory, BigQuery, APIs REST)</span>
+          <span>Pipelines data de bout en bout : ingestion, transformation et fiabilisation des données (ETL/ELT).</span>
         </li>
         <li class="flex gap-2">
           <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span>IoT & time-series : exploitation et KPI temps réel (Warp 10 / WarpScript / Discovery)</span>
+          <span>IoT & time-series : suivi opérationnel, KPI et monitoring pour le pilotage.</span>
         </li>
         <li class="flex gap-2">
           <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
-          <span>Automatisation du reporting : réduction de plus de 70% du temps consacré aux tâches récurrentes</span>
+          <span>Automatisation des traitements et du reporting pour réduire les tâches récurrentes et améliorer la qualité.</span>
         </li>
       </ul>
 
@@ -41,8 +52,6 @@
            class="rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700">
           Voir quelques projets
         </a>
-
-        <!-- fichier -->
         <a href="{% static 'files/cv_kossiviV1.pdf' %}" target="_blank" rel="noopener"
            class="rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50">
           Visualiser mon CV (PDF)
@@ -54,15 +63,14 @@
         </a>
       </div>
 
-      <div class="mt-8 flex flex-wrap gap-3 text-sm">
-        
+      <div class="mt-8 flex flex-wrap items-center gap-3 text-sm">
         <a class="font-semibold text-slate-700 hover:text-emerald-700"
-           href="https://github.com/etsekoss/portfolios" target="_blank" rel="noopener">
+           href="{{ links.github }}" target="_blank" rel="noopener">
           GitHub
         </a>
         <span class="text-slate-300">&bull;</span>
         <a class="font-semibold text-slate-700 hover:text-emerald-700"
-           href="https://www.linkedin.com/in/kossivi-etse-98033022a/" target="_blank" rel="noopener">
+           href="{{ links.linkedin }}" target="_blank" rel="noopener">
           LinkedIn
         </a>
       </div>
@@ -71,7 +79,7 @@
     <div class="flex justify-center md:justify-end">
       <div class="relative">
         <div class="absolute -inset-2 rounded-2xl bg-emerald-100"></div>
-        <img src="{% static 'images/your_photo2.jpg' %}" alt="Kossivi ETSE"
+        <img src="{% static 'images/your_photo2.jpg' %}" alt="Photo de Kossivi ETSE"
              class="relative w-72 rounded-2xl object-cover shadow-lg md:w-80" />
       </div>
     </div>
@@ -90,7 +98,7 @@
       <div class="rounded-xl bg-slate-800 p-6">
         <h3 class="text-lg font-bold text-white">Data Engineering</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Collecte, nettoyage, transformation (ETL/ELT), orchestration de pipelines et modélisation pour mettre à disposition
+          Collecte, nettoyage, transformation (ETL/ELT), orchestration de pipelines et modélisation pour délivrer
           des données prêtes pour l'analyse et la BI.
         </p>
       </div>
@@ -98,14 +106,14 @@
       <div class="rounded-xl bg-slate-800 p-6">
         <h3 class="text-lg font-bold text-white">Machine Learning</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Exploration, détection d'anomalies, modèles de prévision / classification, évaluation et construction d'indicateurs.
+          Exploration, détection d'anomalies, modèles de prévision / classification, évaluation et indicateurs.
         </p>
       </div>
 
       <div class="rounded-xl bg-slate-800 p-6">
-        <h3 class="text-lg font-bold text-white">Développement & Automatisation</h3>
+        <h3 class="text-lg font-bold text-white">Dev & Automatisation</h3>
         <p class="mt-2 text-sm text-slate-300">
-          Développement d'applications et d'outils internes (backend, scripts), automatisation de workflows et intégrations
+          Développement d'applications et d'outils internes, automatisation de workflows et intégrations
           pour accélérer les processus métiers.
         </p>
       </div>
@@ -120,15 +128,84 @@
   </div>
 </section>
 
+<!-- Ce que je peux apporter -->
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-4 py-16">
+    <div class="text-center">
+      <p class="text-sm font-semibold text-emerald-700">Services</p>
+      <h2 class="mt-2 text-2xl font-extrabold text-slate-900 md:text-3xl">
+        Ce que je peux apporter à une équipe
+      </h2>
+      <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-700">
+       Fiabiliser les données, automatiser les processus et livrer des indicateurs exploitables.
+      </p>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+      <!-- Offre 1 -->
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900">1) Industrialisation des pipelines data</h3>
+        <p class="mt-2 text-sm text-slate-700">
+          Mettre en place des flux fiables de bout en bout : ingestion multi-sources, transformations (ETL/ELT),
+          contrôles qualité et traçabilité pour des données prêtes à l'usage.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Structuration et normalisation des données</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Fiabilisation : validations, erreurs, logs</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Automatisation : jobs récurrents, déploiement</span></li>
+        </ul>
+      </div>
+
+      <!-- Offre 2 -->
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900">2) Analyse & modèles utiles au métier</h3>
+        <p class="mt-2 text-sm text-slate-700">
+          Transformer les données en informations actionnables : exploration, détection d'anomalies, prévisions,
+          modèles de classification, avec des métriques claires et une restitution compréhensible.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Feature engineering et évaluation (RMSE, R², etc.)</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Modèles robustes (baseline → amélioration)</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Restitution : insights + limites + recommandations</span></li>
+        </ul>
+      </div>
+
+      <!-- Offre 3 -->
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900">3) Outils internes & automatisation</h3>
+        <p class="mt-2 text-sm text-slate-700">
+          Développer des fonctionnalités qui font gagner du temps : scripts, dashboards, pages web, intégrations
+          et workflows pour réduire le “manuel” et améliorer l'expérience des équipes.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Dashboards KPI & suivi opérationnel</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Automatisation de reporting et de traitements</span></li>
+          <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span><span>Dév web : interfaces simples, propres, maintenables</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+      <a href="{% url 'contact' %}"
+         class="rounded-md bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700">
+        Discutons d'un besoin
+      </a>
+      <a href="{% static 'files/cv_kossiviV1.pdf' %}" target="_blank" rel="noopener"
+         class="rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+        Voir mon CV (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+
+
 <!-- Quelques projets -->
 <section id="projets-phares" class="bg-gray-50">
   <div class="mx-auto max-w-6xl px-4 py-16">
     <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
       <div>
         <h2 class="text-2xl font-extrabold text-slate-900">Quelques projets</h2>
-        <p class="mt-2 text-sm text-slate-700">
-          Une sélection de mes réalisations.
-        </p>
+        <p class="mt-2 text-sm text-slate-700">Une sélection de certaines de mes réalisations.</p>
       </div>
       <a href="{% url 'project_list' %}" class="text-sm font-semibold text-emerald-700 hover:underline">
         Voir plus de projets
@@ -138,12 +215,22 @@
     <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
       {% for p in featured_projects %}
       <article class="rounded-2xl border bg-white p-6 shadow-sm">
+        {% if p.image %}
+          <img
+            src ="{% static p.image %}"
+            alt="{{ p.title }}"
+            class="mb-4 h-36 w-full rounded-xl object-cover bg-slate-50"
+            loading="lazy"
+            />
+        {% endif %}
+
         <h3 class="text-lg font-bold text-slate-900">{{ p.title }}</h3>
 
         <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
           {% for b in p.bullets %}
             <li>{{ b }}</li>
           {% endfor %}
+
         </ul>
 
         <p class="mt-4 text-xs font-semibold text-slate-500">Stack</p>
@@ -154,13 +241,18 @@
           <a href="{{ p.github }}" target="_blank" rel="noopener"
              class="text-sm font-semibold text-emerald-700 hover:underline">Code</a>
           {% endif %}
-          {% if p.category_url %}
-          <a href="{{ p.category_url }}" class="text-sm font-semibold text-slate-700 hover:underline">
-            Catégorie
+          {% if p.notebook_url %}
+          <a href="{{ p.notebook_url }}" class="text-sm font-semibold text-slate-700 hover:underline">
+            Visualiser le notebook
           </a>
+
           {% endif %}
         </div>
       </article>
+      {% empty %}
+      <div class="col-span-full rounded-xl border bg-white p-6 text-sm text-slate-700">
+        Aucun projet mis en avant pour le moment.
+      </div>
       {% endfor %}
     </div>
   </div>

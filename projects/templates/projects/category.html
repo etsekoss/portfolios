@@ -21,15 +21,22 @@
 
       <a class="project-card" href="{% url 'project_detail' project.id %}">
         {% if project.image %}
-          <img
-            src="{% static 'images/tech/' %}{{ project.image.name|cut:'projects/' }}"
-            alt="{{ project.title }}"
-            class="custom-image"
-          >
+          <div class="project-image-wrap">
+            <img
+              src="{% static 'images/tech/' %}{{ project.image.name|cut:'projects/' }}"
+              alt="{{ project.title }}"
+              class="custom-image"
+            >
+          </div>
         {% else %}
-            <img src="{% static 'images/default.png' %}" alt="Image par défaut" class="custom-image">
+          <div class="project-image-wrap">
+            <img
+              src="{% static 'images/default.png' %}"
+              alt="Image par défaut"
+              class="custom-image"
+            >
+          </div>
         {% endif %}
-
 
         <div class="custom-content">
           <h3 class="custom-title">{{ project.title }}</h3>
@@ -39,7 +46,7 @@
       </a>
 
     {% empty %}
-      <p class="text-center text-gray-500 col-span-full">Aucun projet trouvé pour le moment.</p>
+      <p class="text-center text-gray-500 col-span-full">Aucun projet mis en ligne pour le moment.</p>
     {% endfor %}
   </div>
 

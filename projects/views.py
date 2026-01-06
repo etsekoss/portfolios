@@ -3,10 +3,11 @@ from django.http import Http404
 import os
 import chardet
 from .models import Project
+from django.urls import reverse
+
 
 # Vue pour la page d'accueil
 def home(request):
-    # Les projets en base peuvent être utilisés ailleurs (listes/catégories)
     projects = Project.objects.all()
 
     links = {
@@ -14,51 +15,61 @@ def home(request):
         "linkedin": "https://www.linkedin.com/in/kossivi-etse-98033022a/",
     }
 
-    # Projets phares (MVP) — alimentés via des données statiques.
-    # Vous pourrez ensuite les stocker en base et les gérer via l'admin.
     featured_projects = [
         {
             "title": "Analyse & prédiction du prix du gaz sur Ethereum (TER)",
             "bullets": [
                 "Collecte et intégration via APIs REST (Infura, Etherscan) + Google BigQuery.",
                 "Orchestration de flux batch avec Azure Data Factory pour fiabiliser les datasets.",
-                "Analyse et détection d’anomalies lors des périodes de congestion.",
+                "Analyse et détection d'anomalies lors des périodes de congestion.",
                 "Modèles de ML pour prédire les variations du prix du gaz (quasi temps réel).",
             ],
             "stack": "Python, Pandas, NumPy, scikit-learn, Azure Data Factory, BigQuery, APIs REST",
             "github": None,
-            "category_url": "/projects/data-engineering/",
+            "image": "images/tech/ProjetEther.png",
+            "notebook_url": None,
         },
         {
-            "title": "Conception d’une base de données — agence de voyage",
+            "title": "Conception d'une base de données — agence de voyage",
             "bullets": [
                 "Modélisation conceptuelle & logique (clients, réservations, voyages, prestations).",
                 "Implémentation relationnelle et requêtes SQL (insertion, consultation, analyse).",
-                "Application des principes d’intégrité et de normalisation.",
+                "Application des principes d'intégrité et de normalisation.",
             ],
             "stack": "SQL, JMerise",
             "github": None,
-            "category_url": "/projects/data-engineering/",
+            "image": "images/tech/agentVoyage.png",
+            "notebook_url": None,
         },
         {
-            "title": "Stage Data Scientist – Data Engineer — photovoltaïque & IoT",
+            "title": "Stage Data Scientist - Data Engineer — photovoltaïque & IoT",
             "bullets": [
                 "ETL/ELT IoT (PV, batteries, réseau, groupes électrogènes) et structuration des données.",
                 "KPIs & dashboards temps réel pour le suivi production/consommation/état équipements.",
-                "Automatisation des rapports (−70% temps de reporting) pour la décision opérationnelle.",
+                "Automatisation des rapports (-70% temps de reporting) pour la décision opérationnelle.",
                 "Intégration de modèles ML dans un LLM interne (Spocky) pour diagnostic & maintenance prédictive.",
             ],
             "stack": "Warp10, WarpScript, Discovery, Python, SQL, Git/GitHub",
             "github": None,
-            "category_url": "/projects/data-engineering/",
+            "image": "images/tech/stageTysilio.png",
+            "notebook_url": None,
         },
     ]
+
+    # Associer chaque "featured" à son notebook (si le projet existe en base et a un notebook)
+    for fp in featured_projects:
+        obj = Project.objects.filter(title=fp["title"]).first()
+        if obj and obj.notebook_html:
+            fp["notebook_url"] = reverse("notebook_view", args=[obj.id])
 
     return render(request, "projects/home.html", {
         "projects": projects,
         "featured_projects": featured_projects,
         "links": links,
     })
+
+
+
 
 
 # Vue pour la page de contact
@@ -192,15 +203,15 @@ def technologies_view(request):
     technologies = {
         "Langages de Programmation": {
             "slug": "langages-de-programmation",
-            "items": ["Python", "JavaScript", "SQL", "HTML", "CSS"]
+            "items": ["Java", "Python", "JavaScript", "WarpScript", "SQL", "HTML", "CSS"]
         },
         "Frameworks et Bibliothèques": {
             "slug": "frameworks-et-bibliotheques",
-            "items": ["Django", "NumPy", "Pandas", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind"]
+            "items": ["Django", "NumPy", "Pandas", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind", "Angular"]
         },
         "Outils et Plateformes": {
             "slug": "outils-et-plateformes",
-            "items": ["Git", "GitHub", "Azure", "AWS"]
+            "items": ["Azure", "AWS", "Git", "GitHub", "GitLab" "CI/CD" ]
         },
         "Domaines Spécifiques": {
             "slug": "domaines-specifiques",
@@ -212,10 +223,10 @@ def technologies_view(request):
 # Vue pour afficher les technologies par catégorie
 def technologies_category_view(request, category):
     technologies_by_category = {
-        "langages-de-programmation": ["Python", "JavaScript", "SQL", "HTML", "CSS"],
-        "frameworks-et-bibliotheques": ["Django", "NumPy", "Pandas", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind"],
-        "outils-et-plateformes": ["Git", "GitHub", "Azure", "AWS"],
-        "domaines-specifiques": ["Machine Learning", "Deep Learning", "REST API"]
+        "langages-de-programmation": ["Java", "Python", "JavaScript", "SQL", "HTML / CSS", "WarpScript", "R"],
+        "frameworks-et-bibliotheques": ["Django", "NumPy / Pandas", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind", "PyTorch"],
+        "outils-et-plateformes": ["Azure Data Factory", "BigQuery", "APIs(REST)", "Warp10", " Discorvery(SenX)", "AWS", "Git(GitHub/GitLab/Etulab)", "CI/CD (GitLab CI / Etulab)", "Node.js /npm", "Jupiter / Notebooks", "Tableau / Power BI"],
+        "domaines-specifiques": ["Data Engineering", "Machine Learning", "Deep Learning", "IoT & Time-Series Analytics", "Data Analytics / KPI / Reporting", "Développement Web Data-driven", "Energy & PV Analytics"]
     }
     technologies = technologies_by_category.get(category)
     if not technologies:
