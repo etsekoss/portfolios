@@ -11,7 +11,7 @@ def home(request):
     projects = Project.objects.all()
 
     links = {
-        "github": "https://github.com/etsekoss",
+        #"github": "https://github.com/etsekoss",
         "linkedin": "https://www.linkedin.com/in/kossivi-etse-98033022a/",
     }
 
@@ -134,20 +134,20 @@ def category_view(request, category_name=None, category_slug=None):
     - route dynamique /projects/<str:category_name>/ (qui sera en fait un slug)
     """
 
-    # 1) Déterminer le slug réel
+    # 1. Déterminer le slug réel
     if category_slug:
         slug = category_slug
     elif category_name in CATEGORY_SLUGS:
         slug = CATEGORY_SLUGS[category_name]          
     else:
         slug = category_name                         
-    # 2) Filtrer
+    # 2. Filtrer
     projects = Project.objects.filter(category=slug)
 
-    # 3) Libellé affiché
+    # 3. Libellé affiché
     label = CATEGORY_LABELS.get(slug, category_name or slug)
 
-    # 4) Option 404 si rien et catégorie inconnue
+    # 4. Option 404 si rien et catégorie inconnue
     if not projects.exists() and slug not in CATEGORY_LABELS:
         raise Http404(f"La catégorie '{slug}' n'existe pas.")
 
@@ -224,7 +224,7 @@ def technologies_view(request):
 def technologies_category_view(request, category):
     technologies_by_category = {
         "langages-de-programmation": ["Java", "Python", "JavaScript", "SQL", "HTML / CSS", "WarpScript", "R"],
-        "frameworks-et-bibliotheques": ["Django", "NumPy / Pandas", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind", "PyTorch"],
+        "frameworks-et-bibliotheques": ["Django", "NumPy / Pandas / Scipy", "Scikit-learn", "Matplotlib", "Bootstrap", "Tailwind", "PyTorch"],
         "outils-et-plateformes": ["Azure Data Factory", "BigQuery", "APIs(REST)", "Warp10", " Discorvery(SenX)", "AWS", "Git(GitHub/GitLab/Etulab)", "CI/CD (GitLab CI / Etulab)", "Node.js /npm", "Jupiter / Notebooks", "Tableau / Power BI"],
         "domaines-specifiques": ["Data Engineering", "Machine Learning", "Deep Learning", "IoT & Time-Series Analytics", "Data Analytics / KPI / Reporting", "Développement Web Data-driven", "Energy & PV Analytics"]
     }
@@ -234,4 +234,78 @@ def technologies_category_view(request, category):
     return render(request, 'projects/technologies_category.html', {
         'category': category,
         'technologies': technologies
+    })
+
+# Vue générale des projets
+def projects_hub(request):
+    return render(request, "projects/projects_hub.html")
+
+
+# Affiche contenu de projet si pas de lien Notebook ou GitHub
+def web_development(request):
+    projects = [
+        {
+            "title": "Développement d'une application de gestion d'un championnat de football",
+            "details": [
+                "Développer une application web permettant de gérer et de consulter les données d'un championnat de football (équipes, matchs, résultats, classement).",
+                "Mettre en œuvre une architecture web séparant le backend et le frontend avec une API REST Java Spring Boot et une interface Angular.",
+                "Structurer le backend selon une architecture en couches (Controllers, Services, Repositories, DTO).",
+                "Sécuriser et fiabiliser l'application par des tests automatisés (unitaires et web) et un pipeline CI/CD GitLab déclenchant l'exécution des tests à chaque évolution.",
+            ],
+            "stack": "Java, Spring Boot, Spring MVC, Spring Data JPA, Spring Security, Angular, TypeScript, HTML/CSS, JUnit, Mockito, Git, GitLab CI/CD, Gradle",
+        },
+
+        # Projet Architecture API & 
+
+        {
+            "title": "Développement d'une application web de jeu de devinette de mots (Wordle-like)",
+            "details": [
+                "Conception et développement d'un jeu web interactif où l'utilisateur doit deviner un mot en un nombre limité de tentatives.",
+                "Implémentation d'une API REST pour la gestion des niveaux, la validation des mots et le calcul des réponses.",
+                "Séparation entre frontend et backend avec échanges JSON et gestion des états applicatifs côté client.",
+                "Mise en place de règles de validation, de gestion des erreurs et d'un dictionnaire de mots pour fiabiliser les entrées utilisateur."
+            ],
+            "stack": "JavaScript (ES6), Node.js, Fastify, API REST, HTML/CSS, Git, Tests automatisés."
+        },
+
+    ]
+
+    return render(request, "projects/showcase_static.html", {
+        "page_title": "Développement Web",
+        "page_subtitle": "Applications, APIs, intégration et outils web orientés usage.",
+        "projects": projects,
+    })
+
+
+def mobile_development(request):
+    projects = [
+        {
+            "title": "Application Android — Compression d'image par SVD",
+            "details": [
+                "Développer une application mobile permettant de compresser des images via la décomposition en valeurs singulières (SVD).",
+                "Mettre en place un workflow de sélection d'image, traitement, prévisualisation et export.",
+                "Évaluer l'impact de la compression (qualité visuelle / taille fichier).",
+            ],
+            "stack": "Java, Android Studio, Algèbre linéaire (SVD)",
+        },
+
+        # 
+        
+        {
+            "title": "Application mobile — Suivi météo multi-villes (iOS & Android)",
+            "details": [
+                "Développer une application mobile native permettant de consulter la météo en temps réel pour plusieurs villes.",
+                "Intégrer une API REST externe afin de récupérer et mettre à jour les données météorologiques (température, conditions, prévisions).",
+                "Concevoir des interfaces réactives avec navigation entre écrans, gestion d'une liste de villes et affichage détaillé des informations.",
+                "Mettre en place une persistance locale et une synchronisation contrôlée des données pour limiter les appels réseau."
+            ],
+            "stack": "SwiftUI, Jetpack Compose (Kotlin), REST API, OpenWeatherMap, JSON, Persistence locale, Git"
+        }
+
+    ]
+
+    return render(request, "projects/showcase_static.html", {
+        "page_title": "Développement Mobile",
+        "page_subtitle": "Android (Kotlin / Java) & iOS (Swift) — apps et intégrations.",
+        "projects": projects,
     })

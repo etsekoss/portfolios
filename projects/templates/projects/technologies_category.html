@@ -1,20 +1,26 @@
 {% extends 'projects/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/technologies_category.css' %}?v=20260106">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">{{ category }}</h1>
-    <div class="row justify-content-center">
-        {% for tech in technologies %}
-        <div class="col-md-3 mb-4">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{ tech }}</h5>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+  <h1 class="text-center mb-4">{{ category }}</h1>
+
+  <div class="tech-wrap">
+    <div class="tech-tags">
+      {% for tech in technologies %}
+        <span class="tech-tag">{{ tech }}</span>
+      {% endfor %}
     </div>
-    <div class="text-center mt-4">
-        <a href="{% url 'technologies' %}" class="btn btn-primary">Retour à la rubrique technologies</a>
-    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'technologies' %}" class="btn btn-primary">
+      Retour à la rubrique technologies
+    </a>
+  </div>
 </div>
 {% endblock %}

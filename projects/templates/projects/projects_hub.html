@@ -1,0 +1,173 @@
+{% extends 'projects/base.html' %}
+{% load static %}
+
+{% block title %}Mes projets | Kossivi ETSE{% endblock %}
+
+{% block content %}
+<section class="bg-gray-50">
+  <div class="mx-auto max-w-6xl px-4 py-14">
+
+    <!-- Header -->
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Mes projets</h1>
+        <p class="mt-2 text-sm text-slate-700">
+          Choisissez une rubrique pour explorer les projets associés.
+        </p>
+    </div>
+
+    <!-- Responsive: scroll horizontal (mobile) -> grille (desktop) -->
+    <div class="mt-8 flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory
+                sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:snap-none
+                lg:grid-cols-3">
+
+      <!-- Data Engineering -->
+      <a href="{% url 'data_engineering' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/DataIng.png' %}" alt="Data Engineering"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Data Engineering
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          Pipelines, ETL/ELT, qualité, industrialisation, time-series.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+      <!-- Machine Learning -->
+      <a href="{% url 'machine_learning' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/datascience.png' %}" alt="Machine Learning"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Machine Learning
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          Modèles supervisés, features, évaluation, mise en production.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+      <!-- Deep Learning -->
+      <a href="{% url 'deep_learning' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/DeepL.png' %}" alt="Deep Learning"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Deep Learning
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          CNN, classification, traitement d'images, robustesse.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+      <!-- Développement Web -->
+      <a href="{% url 'web_development' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/DevWeb.png' %}" alt="Développement Web"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Développement Web
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          Django, APIs, intégration data, interfaces orientées usage.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+      <!-- Développement Mobile -->
+      <a href="{% url 'mobile_development' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/DevMobile.png' %}" alt="Développement Mobile"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Développement Mobile
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          Android (Kotlin/Java) & iOS (Swift) — apps et intégrations.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+      <!-- Autres projets -->
+      <a href="{% url 'other_projects' %}"
+         class="snap-start w-72 flex-shrink-0 rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
+                sm:w-auto sm:flex-shrink sm:h-full
+                flex flex-col text-center">
+        <div class="w-full aspect-[16/9] rounded-xl bg-slate-50 overflow-hidden flex items-center justify-center">
+          <img src="{% static 'images/tech/AutreProjet.png' %}" alt="Autres projets"
+               class="h-full w-full object-contain p-2" loading="lazy">
+        </div>
+
+        <h2 class="mt-4 text-base font-bold text-slate-900 leading-snug min-h-[2.75rem]">
+          Autres projets
+        </h2>
+
+        <p class="mt-2 text-sm text-slate-700 leading-relaxed flex-1 mx-auto max-w-[34ch]">
+          Prototypes, outils, automatisations et expérimentations.
+        </p>
+
+        <span class="mt-auto pt-4 inline-flex w-full justify-center text-sm font-semibold text-emerald-700">
+          Explorer →
+        </span>
+      </a>
+
+    </div>
+
+
+  </div>
+</section>
+{% endblock %}

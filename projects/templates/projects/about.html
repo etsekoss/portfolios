@@ -1,31 +1,232 @@
 {% extends 'projects/base.html' %}
+{% load static %}
 
 {% block title %}À propos | Kossivi ETSE{% endblock %}
+
 
 {% block content %}
 <section class="bg-white">
   <div class="mx-auto max-w-4xl px-4 py-16">
-    <h1 class="text-3xl font-extrabold text-slate-900">À propos</h1>
-    <p class="mt-4 text-slate-700 leading-relaxed">
-      Je suis Data Engineer / Data Scientist, diplômé d’un Master Mathématiques Appliquées / Statistiques – Data Science,
-      et actuellement en Master Compétences Complémentaires en Informatique. Mon objectif est de concevoir des solutions data
-      fiables et industrialisables, en lien direct avec les besoins métier.
-    </p>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-2">
-      <div class="rounded-2xl border bg-gray-50 p-6">
-        <h2 class="text-lg font-bold text-slate-900">Ce que j’apporte</h2>
-        <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-          <li>Pipelines ETL/ELT, qualité, traçabilité et automatisation.</li>
-          <li>IoT/time-series, KPI et dashboards opérationnels.</li>
-          <li>Capacité à traduire un besoin métier en solution technique.</li>
-        </ul>
+    <!-- Header -->
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">À propos</h1>
+        <p class="mt-2 text-sm text-slate-600">
+          Parcours, façon de travailler, et ce que je peux apporter en Data Engineering.
+        </p>
       </div>
-      <div class="rounded-2xl border bg-gray-50 p-6">
-        <h2 class="text-lg font-bold text-slate-900">Stack principale</h2>
-        <p class="mt-3 text-sm text-slate-700">Python, SQL, Django, Git/GitHub, Azure Data Factory, BigQuery, APIs REST, Warp 10/WarpScript, Discovery.</p>
+
+      <!-- CTA -->
+      <div class="flex flex-wrap gap-2">
+       
+        
       </div>
     </div>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- Intro -->
+    <section class="pt-10">
+      <h2 class="text-xl font-bold text-slate-900">Qui suis-je, et pourquoi ce site ?</h2>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Bonjour et bienvenue. J'ai créé ce site pour centraliser mon parcours, mes projets et ma manière de travailler.
+        L'objectif est simple : montrer, de façon concrète, comment je transforme des données en solutions utiles et fiables,
+        et comment je construis des outils qui tiennent dans le temps.
+      </p>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Je m'appelle Kossivi Etse. Je suis diplômé d'un Master Mathématiques Appliquées &amp; Statistiques (parcours Data Science)
+        et je suis actuellement en Master Compétences Complémentaires en Informatique. Ce second master complète volontairement mon profil :
+        au-delà de l'analyse, je veux renforcer l'ingénierie logicielle et le data engineering, pour livrer des solutions data industrialisées,
+        maintenables et traçables.
+      </p>
+
+      <!-- Links emphasis -->
+      <div class="mt-6 flex flex-wrap gap-2">
+        <a href="{% url 'projects_hub' %}"
+           class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">
+          Voir mes projets
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="{% url 'technologies' %}"
+           class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+          Voir les technologies
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- Core -->
+    <section class="pt-10">
+      <h2 class="text-xl font-bold text-slate-900">Mon cœur de métier : construire des “data products” fiables</h2>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Ce qui m'intéresse le plus, ce n'est pas uniquement de produire des analyses, mais de bâtir des solutions réellement exploitables :
+        des pipelines, des modules de calcul, des indicateurs, et des outils de restitution qui servent au quotidien.
+      </p>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Lors de mon stage chez Tysilio, j'ai travaillé sur des données industrielles (capteurs, séries temporelles) dans un contexte énergie.
+        Cette expérience est un terrain d'application fort, mais les compétences sont transférables à tout environnement où l'on traite des données
+        opérationnelles (IoT, industrie, plateformes data, etc.). J'y ai notamment contribué à :
+      </p>
+
+      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <ul class="list-disc space-y-2 pl-5 text-slate-700">
+          <li>collecter et structurer des données issues de capteurs,</li>
+          <li>normaliser (unités, granularité, alignement temporel) pour rendre les mesures comparables,</li>
+          <li>concevoir et calculer des KPI pertinents pour l'exploitation,</li>
+          <li>restituer via des dashboards et automatiser des reporting,</li>
+          <li>avec un souci constant de qualité de données et de traçabilité.</li>
+        </ul>
+      </div>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Cette exigence est essentielle en environnement réel : la donnée peut être incomplète, hétérogène ou bruitée, et pourtant les équipes doivent
+        pouvoir décider sur des résultats qu'elles comprennent et auxquels elles peuvent faire confiance.
+      </p>
+    </section>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- How I work + Stack -->
+    <section class="pt-10">
+      <div class="grid gap-6 md:grid-cols-2">
+
+        <!-- How I work -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-slate-900"> 
+            <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+              Méthode
+            </span>
+            </h2>
+          </div>
+
+          <ul class="mt-4 space-y-3 text-sm text-slate-700">
+            <li class="flex gap-2">
+              <span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span><span class="font-semibold text-slate-900">Partir du besoin métier</span> : quelle décision doit être prise, et à quelle fréquence ?</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span><span class="font-semibold text-slate-900">Définir des KPI robustes</span> : formule, fenêtre temporelle, hypothèses, limites.</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span><span class="font-semibold text-slate-900">Sécuriser la donnée</span> : unités, timestamps, valeurs manquantes, outliers, cohérence inter-signaux.</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span><span class="font-semibold text-slate-900">Industrialiser</span> : code lisible, versionné, documenté, reproductible, sorties standardisées.</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="mt-2 h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span><span class="font-semibold text-slate-900">Livrer par itérations</span> : une V1 utile rapidement, puis enrichissement progressif (V2, modules, optimisation).</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Stack -->
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-slate-900">Stack principale</h2>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+              Tech
+            </span>
+          </div>
+
+          <p class="mt-4 text-sm leading-relaxed text-slate-700">
+            Python, SQL, Django, Git/GitHub, Azure Data Factory, BigQuery, APIs REST, Warp 10/WarpScript, Discovery.
+          </p>
+
+          <a href="{% url 'technologies' %}"
+             class="mt-5 inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+            Voir toutes les technologies
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- Web & Mobile -->
+    <section class="pt-10">
+      <h2 class="text-xl font-bold text-slate-900">Développement web et mobile : un plus pour aller jusqu’au produit</h2>
+      <p class="mt-4 leading-relaxed text-slate-700">
+        En parallèle, je développe aussi en web et en mobile. Je ne le considère pas comme un changement de direction, mais comme un levier :
+        savoir construire une interface, une API ou un outil interne permet de transformer un traitement data en produit réellement utilisé par des équipes.
+        Cela renforce ma capacité à livrer “de bout en bout” quand c'est nécessaire.
+      </p>
+    </section>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- What I'm looking for -->
+    <section class="pt-10">
+      <h2 class="text-xl font-bold text-slate-900">Ce que je recherche</h2>
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Je vise des opportunités orientées Data Engineering / Analytics Engineering / Data Analytics industrielle, dans des équipes où l’on valorise :
+      </p>
+
+      <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+        <ul class="list-disc space-y-2 pl-5 text-slate-700">
+          <li>la fiabilité,</li>
+          <li>l'industrialisation,</li>
+          <li>la traçabilité,</li>
+          <li>et la collaboration avec des utilisateurs métiers.</li>
+        </ul>
+      </div>
+
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Mon expérience énergie est un atout naturel, mais je reste ouvert à tout secteur où les données sont opérationnelles et où l’on construit des solutions data durables.
+      </p>
+    </section>
+
+    <!-- Separator -->
+    <div class="mt-10 border-t border-slate-200"></div>
+
+    <!-- Contact -->
+    <section class="pt-10">
+      <h2 class="text-xl font-bold text-slate-900">Me contacter</h2>
+      <p class="mt-4 leading-relaxed text-slate-700">
+        Si vous souhaitez échanger sur un projet, un stage ou une opportunité, vous pouvez me contacter via la page
+        <a href="{% url 'contact' %}" class="font-semibold text-emerald-700 underline decoration-emerald-200 hover:decoration-emerald-400">
+          Contact
+        </a>
+        ou via LinkedIn. Vous trouverez également mes projets et mon CV sur ce site.
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-2">
+        <a href="{% static 'files/cv_kossiviV1.pdf' %}" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+          Voir mon CV
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a href="{% url 'projects_hub' %}"
+           class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50">
+          Parcourir les Projets
+          <span aria-hidden="true">→</span>
+        </a>
+         <a href="{% url 'contact' %}"
+           class="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-600">
+          Me contacter
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
   </div>
 </section>
 {% endblock %}
