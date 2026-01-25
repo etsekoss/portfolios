@@ -47,6 +47,12 @@ urlpatterns = [
 
     # 
     path("mes-projets/", views.projects_hub, name="projects_hub"),
+    
+    # Page analitics
+    path("analytics/collect/", views.analytics_collect, name="analytics_collect"),
+    path("analytics/optout/", views.analytics_optout, name="analytics_optout"),
+    path("analytics/optin/", views.analytics_optin, name="analytics_optin"),
+    path("internal/analytics/", views.analytics_dashboard, name="analytics_dashboard"),
 
 ]
 

@@ -31,3 +31,21 @@ class Project(models.Model):
             except Exception as e:
                 return f"<p>Erreur lors du chargement du notebook : {str(e)}</p>"
         return "<p>Aucun notebook disponible.</p>"
+    
+# Classe page view
+class PageView(models.Model):
+    ts = models.DateTimeField(auto_now_add=True)
+
+    path = models.CharField(max_length=255, db_index=True)
+    ref_domain = models.CharField(max_length=120, blank=True, db_index=True)
+
+    device_type = models.CharField(max_length=20, blank=True, db_index=True )
+    browser = models.CharField(max_length=30, blank=True, db_index=True)
+
+    visitor_day = models.CharField(max_length=64, blank=True, db_index=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["ts", "path"]),
+            models.Index(fields=["ts", "ref_domain"]),
+        ]

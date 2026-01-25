@@ -39,11 +39,12 @@
 
           <div class="absolute right-0 top-full z-50 hidden w-56 overflow-hidden rounded-lg border bg-white text-slate-800 shadow-lg group-hover:block">
             <div class="py-1">
-              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/data-engineering/">Data Ingénierie</a>
-              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/machine-learning/">Machine Learning</a>
-              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/deep-learning/">Deep Learning</a>
-              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/web-development/">Développement Web</a>
-              <a class="block px-4 py-2 hover:bg-slate-50" href="/projects/mobile-development/">Développement Mobile</a>
+                <a href="{% url 'data_engineering' %}">Data Ingénierie</a>
+                <a href="{% url 'machine_learning' %}">Machine Learning</a>
+                <a href="{% url 'deep_learning' %}">Deep Learning</a>
+                <a href="{% url 'web_development' %}">Développement Web</a>
+                <a href="{% url 'mobile_development' %}">Développement Mobile</a>
+
             </div>
           </div>
         </div>
@@ -73,5 +74,37 @@
       <a class="font-semibold text-emerald-300 hover:underline" href="https://www.linkedin.com/in/kossivi-etse-98033022a/" target="_blank" rel="noopener">LinkedIn</a>.
     </div>
   </footer>
+
+<script>
+(function () {
+  const path = window.location.pathname;
+
+  // pour éviter l’auto-tracking
+  if (path.startsWith("/internal/") || path.startsWith("/admin/")) return;
+
+  // Respect opt-out
+  if (document.cookie.includes("analytics_optout=1")) return;
+
+  const payload = { path, referrer: document.referrer || "" };
+
+  try {
+    navigator.sendBeacon(
+      "/analytics/collect/",
+      new Blob([JSON.stringify(payload)], { type: "application/json" })
+    );
+  } catch (e) {
+    fetch("/analytics/collect/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      credentials: "same-origin",
+      keepalive: true
+    });
+  }
+})();
+</script>
+
+
+
 </body>
 </html>

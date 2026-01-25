@@ -4,6 +4,19 @@ import os
 import chardet
 from .models import Project
 from django.urls import reverse
+import json, hashlib
+from urllib.parse import urlparse
+from datetime import date
+from django.conf import settings
+from django.http import JsonResponse, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Count
+from django.utils import timezone
+from datetime import date, timedelta
+from django.db.models.functions import TruncDate
+
+from .models import PageView
 
 
 # Vue pour la page d'accueil
@@ -308,4 +321,165 @@ def mobile_development(request):
         "page_title": "Développement Mobile",
         "page_subtitle": "Android (Kotlin / Java) & iOS (Swift) — apps et intégrations.",
         "projects": projects,
+    })
+
+def _get_ref_domain(referrer: str) -> str :
+    try:
+        if not referrer:
+            return ""
+        host = urlparse(referrer).netloc.lower()
+        return host.replace("www.", "")
+    except Exception:
+        return ""
+
+def _device_type(user_agent: str) -> str:
+    ua = (user_agent or "").lower()
+    if "mobile" in ua or "android" in ua or "iphone" in ua:
+        return "mobile"
+    if ua:
+        return "desktop"
+    return "other"
+
+def _browser_family(user_agent: str) -> str:
+    ua = (user_agent or "").lower()
+
+    if "edg/" in ua or "edga" in ua or "edgios" in ua:
+        return "Edge"
+    if "firefox/" in ua:
+        return "Firefox"
+    if "chrome/" in ua and "safari/" in ua and "edg/" not in ua:
+        return "Chrome"
+    if "safari/" in ua and "chrome/" not in ua:
+        return "Safari"
+    return "Other"
+
+
+def _client_ip_truncated(request) -> str:
+    xff = request.META.get("HTTP_X_FORWARDED_FOR")
+    ip = (xff.split(",")[0].strip() if xff else request.META.get("REMOTE_ADDR", "")) or ""
+
+    # IPv6 : on garde un préfixe grossier (3 hextets)
+    if ":" in ip:
+        parts = ip.split(":")
+        return ":".join(parts[:3]) + "::"
+
+    # IPv4 : on garde /24
+    parts = ip.split(".")
+    if len(parts) == 4:
+        return ".".join(parts[:3]) + ".0"
+
+    return ""
+
+
+@csrf_exempt
+def analytics_collect(request):
+    # 1) Opt-out : si refus, on ignore
+    if request.COOKIES.get("analytics_optout") == "1":
+        return JsonResponse({"ok": True})
+
+    # 2) On accepte seulement POST
+    if request.method != "POST":
+        return HttpResponseBadRequest("POST only")
+
+    # 3) Same-origin minimal (si tu veux activer une whitelist)
+    referer = request.META.get("HTTP_REFERER", "")
+    allowed = getattr(settings, "ANALYTICS_ALLOWED_REFERERS", [])
+    if allowed and not any(referer.startswith(a) for a in allowed):
+        return JsonResponse({"ok": False}, status=403)
+
+    # 4) Lire JSON
+    try:
+        payload = json.loads((request.body or b"{}").decode("utf-8"))
+    except Exception:
+        payload = {}
+
+    path = (payload.get("path") or "")[:255]
+    if not path.startswith("/"):
+        path = "/" + path
+
+    ref = _get_ref_domain(payload.get("referrer") or "")
+    ua = request.META.get("HTTP_USER_AGENT", "")
+
+    device = _device_type(ua)
+    browser = _browser_family(ua)
+
+    # 5) Uniques approximatifs (uniquement si SALT défini)
+    visitor_day = ""
+    salt = getattr(settings, "ANALYTICS_SALT", "")
+    if salt:
+        ip_trunc = _client_ip_truncated(request)
+        day = date.today().isoformat()
+        raw = f"{salt}|{day}|{ip_trunc}|{browser}|{device}"
+        visitor_day = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+    PageView.objects.create(
+        path=path,
+        ref_domain=ref,
+        device_type=device,
+        browser=browser,
+        visitor_day=visitor_day,
+    )
+
+    return JsonResponse({"ok": True})
+
+
+def analytics_optout(request):
+    resp = JsonResponse({"ok": True})
+    resp.set_cookie("analytics_optout", "1", max_age=3600*24*400, samesite="Lax")
+    return resp
+
+def analytics_optin(request):
+    resp = JsonResponse({"ok": True})
+    resp.delete_cookie("analytics_optout")
+    return resp
+
+def _is_owner(u):
+    return u.is_authenticated and u.is_superuser
+
+
+
+@login_required
+@user_passes_test(_is_owner)
+def analytics_dashboard(request):
+    # 1) Filtre jours (borné)
+    try:
+        days = int(request.GET.get("days", "30"))
+    except ValueError:
+        days = 30
+    days = max(1, min(days, 365))
+
+    since = timezone.now() - timedelta(days=days)
+    qs = PageView.objects.filter(ts__gte=since)
+
+    # 2) KPIs
+    kpi_pageviews = qs.count()
+    kpi_uniques = qs.exclude(visitor_day="").values("visitor_day").distinct().count()
+
+    # 3) Tops
+    top_pages = qs.values("path").annotate(c=Count("id")).order_by("-c")[:10]
+    top_sources = qs.exclude(ref_domain="").values("ref_domain").annotate(c=Count("id")).order_by("-c")[:10]
+    devices = qs.exclude(device_type="").values("device_type").annotate(c=Count("id")).order_by("-c")
+    browsers = qs.exclude(browser="").values("browser").annotate(c=Count("id")).order_by("-c")
+
+    # 4) Séries pour graphique (pageviews/jour)
+    by_day = (
+        qs.annotate(day=TruncDate("ts"))
+          .values("day")
+          .annotate(c=Count("id"))
+          .order_by("day")
+    )
+    by_day_list = list(by_day)
+    max_c = max((d["c"] for d in by_day_list), default=1)
+    for d in by_day_list:
+        d["pct"] = int((d["c"] / max_c) * 100)  # hauteur barre %
+
+    return render(request, "projects/analytics_dashboard.html", {
+        "days": days,
+        "kpi_pageviews": kpi_pageviews,
+        "kpi_uniques": kpi_uniques,
+        "top_pages": top_pages,
+        "top_sources": top_sources,
+        "devices": devices,
+        "browsers": browsers,
+        "by_day": by_day_list,
     })

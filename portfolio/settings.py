@@ -55,10 +55,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
+
+SQLITE_PATH = config("SQLITE_PATH", default=str(BASE_DIR / "db.sqlite3"))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': SQLITE_PATH,
     }
 }
 
@@ -95,3 +97,15 @@ LOGGING = {
     'handlers': {'console': {'class': 'logging.StreamHandler'}},
     'root': {'handlers': ['console'], 'level': 'DEBUG' if DEBUG else 'INFO'},
 }
+
+# --- Auth ---
+LOGIN_URL = "/admin/login/"
+
+# 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+

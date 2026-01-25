@@ -1,0 +1,173 @@
+{% extends "projects/base.html" %}
+{% block title %}Analytics interne | Kossivi ETSE{% endblock %}
+
+{% block content %}
+<section class="bg-gray-50">
+  <div class="mx-auto max-w-6xl px-4 py-10">
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-slate-900">Analytics interne</h1>
+    
+      </div>
+
+      <form method="get" class="flex items-center gap-2">
+        <label class="text-sm font-semibold text-slate-700">Période</label>
+        <select name="days" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+          <option value="7"  {% if days == 7 %}selected{% endif %}>7 jours</option>
+          <option value="30" {% if days == 30 %}selected{% endif %}>30 jours</option>
+          <option value="90" {% if days == 90 %}selected{% endif %}>90 jours</option>
+          <option value="365" {% if days == 365 %}selected{% endif %}>1 an</option>
+        </select>
+        <button class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800" type="submit">
+          Appliquer
+        </button>
+      </form>
+    </div>
+
+    <!-- KPI -->
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <div class="text-sm font-semibold text-slate-600">Pages vues</div>
+        <div class="mt-1 text-3xl font-extrabold text-slate-900">{{ kpi_pageviews }}</div>
+        <div class="mt-1 text-xs text-slate-500">sur {{ days }} jours</div>
+      </div>
+
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <div class="text-sm font-semibold text-slate-600">Visiteurs uniques (approx.)</div>
+        <div class="mt-1 text-3xl font-extrabold text-slate-900">{{ kpi_uniques }}</div>
+        <div class="mt-1 text-xs text-slate-500">calculés via identifiant pseudonyme journalier</div>
+      </div>
+    </div>
+
+    <!-- Graph by day -->
+    <div class="mt-6 rounded-2xl border bg-white p-5 shadow-sm">
+      <div class="flex items-center justify-between">
+        <h2 class="text-sm font-bold text-slate-900">Pages vues par jour</h2>
+        <span class="text-xs text-slate-500">{{ days }} derniers jours</span>
+      </div>
+
+      {% if by_day %}
+      <div class="mt-4 flex h-28 items-end gap-1 overflow-x-auto pb-2">
+        {% for d in by_day %}
+          <div class="flex w-8 flex-col items-center justify-end gap-1">
+            <div class="w-6 rounded-md bg-emerald-500" style="height: {{ d.pct }}%;"></div>
+            <div class="text-[10px] text-slate-500 whitespace-nowrap">
+              {{ d.day|date:"d/m" }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <p class="mt-3 text-sm text-slate-600">Pas encore de données sur cette période.</p>
+      {% endif %}
+    </div>
+
+    <!-- Tables -->
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-900">Top pages</h2>
+        <div class="mt-3 overflow-hidden rounded-xl border">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Page</th>
+                <th class="px-3 py-2 text-right font-semibold">Vues</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              {% for p in top_pages %}
+              <tr class="hover:bg-slate-50">
+                <td class="px-3 py-2 text-slate-800">{{ p.path }}</td>
+                <td class="px-3 py-2 text-right font-semibold text-slate-900">{{ p.c }}</td>
+              </tr>
+              {% empty %}
+              <tr><td class="px-3 py-3 text-slate-600" colspan="2">Aucune donnée.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-900">Top sources</h2>
+        <div class="mt-3 overflow-hidden rounded-xl border">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Source</th>
+                <th class="px-3 py-2 text-right font-semibold">Vues</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              {% for s in top_sources %}
+              <tr class="hover:bg-slate-50">
+                <td class="px-3 py-2 text-slate-800">{{ s.ref_domain }}</td>
+                <td class="px-3 py-2 text-right font-semibold text-slate-900">{{ s.c }}</td>
+              </tr>
+              {% empty %}
+              <tr><td class="px-3 py-3 text-slate-600" colspan="2">Aucune source détectée.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-900">Appareils</h2>
+        <div class="mt-3 overflow-hidden rounded-xl border">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Type</th>
+                <th class="px-3 py-2 text-right font-semibold">Vues</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              {% for d in devices %}
+              <tr class="hover:bg-slate-50">
+                <td class="px-3 py-2 text-slate-800">{{ d.device_type }}</td>
+                <td class="px-3 py-2 text-right font-semibold text-slate-900">{{ d.c }}</td>
+              </tr>
+              {% empty %}
+              <tr><td class="px-3 py-3 text-slate-600" colspan="2">Aucune donnée.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border bg-white p-5 shadow-sm">
+        <h2 class="text-sm font-bold text-slate-900">Navigateurs</h2>
+        <div class="mt-3 overflow-hidden rounded-xl border">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left font-semibold">Navigateur</th>
+                <th class="px-3 py-2 text-right font-semibold">Vues</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y">
+              {% for b in browsers %}
+              <tr class="hover:bg-slate-50">
+                <td class="px-3 py-2 text-slate-800">{{ b.browser }}</td>
+                <td class="px-3 py-2 text-right font-semibold text-slate-900">{{ b.c }}</td>
+              </tr>
+              {% empty %}
+              <tr><td class="px-3 py-3 text-slate-600" colspan="2">Aucune donnée.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="mt-6 text-xs text-slate-500">
+      Conseil : évite de garder ces données indéfiniment (ex. purge > 90 jours) pour rester minimaliste.
+    </p>
+
+  </div>
+</section>
+{% endblock %}
